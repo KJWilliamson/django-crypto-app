@@ -1,0 +1,90 @@
+<!--extends from base.html template which has nav-->
+<!--going to use bootstrap-->
+<!--https://getbootstrap.com/-->
+<!--for each page-->
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!--bootstrap jumbotron-->
+
+<div class="jumbotron">
+  <h1 class="display-4">The Leading Source for Crypto News!</h1>
+  <p class="lead">UpToDate content for all your informational currency needs</p>
+  <hr class="my-4">
+  <p class="lead">
+
+  </p>
+</div>
+<!--end of jumbotron-->
+
+
+
+
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">24h High</th>
+      <th scope="col">24h Low</th>
+      <th scope="col">MarketCap</th>
+    </tr>
+  </thead>
+
+
+{% for key, value in api_price.DISPLAY.items %}
+
+<!--boostrap  table
+https://getbootstrap.com/docs/5.0/content/tables/-->
+
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ value.USD.PRICE }}</td>
+      <td>{{ value.USD.HIGHDAY }}</td>
+      <td>{{ value.USD.LOWDAY }}</td>
+      <td>{{ value.USD.MKTCAP }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+<!--end of table-->
+
+<br/>
+<br/>
+
+
+<div class="container">
+    <div class="row">
+        {% for a in api.Data %}
+            <div class="col-sm">
+                <!--        boostrap card
+                https://getbootstrap.com/docs/5.0/components/card/-->
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ a.imageurl }}"  alt="{{ a.source }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ a.title }}</h5>
+                            <p class="card-text">{{ a.body }}</p>
+                            <a href="{{ a.url }}" class="btn btn-warning">Read more...</a>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+
+             {% endfor %}
+        </div>
+    </div>
+
+
+<!--    <ul>-->
+<!--        {% for a in api.Data %}-->
+<!--        <li>{{ a.title }}</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+
+<!--    {{ api.Data }}-->
+
+{% endblock %}
+
